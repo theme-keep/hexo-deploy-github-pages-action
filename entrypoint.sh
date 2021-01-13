@@ -4,19 +4,19 @@ set -e
 
 # check values
 
-if [ -f "${PUBLISH_REPOSITORY}" ]; then
+if [ -n "${PUBLISH_REPOSITORY}" ]; then
     TARGET_REPOSITORY=${PUBLISH_REPOSITORY}
 else
     TARGET_REPOSITORY=${GITHUB_REPOSITORY}
 fi
 
-if [ -f "${BRANCH}" ]; then
+if [ -n "${BRANCH}" ]; then
     TARGET_BRANCH=${BRANCH}
 else
     TARGET_BRANCH="gh-pages"
 fi
 
-if [ -f "${PUBLISH_DIR}" ]; then
+if [ -n "${PUBLISH_DIR}" ]; then
     TARGET_PUBLISH_DIR=${PUBLISH_DIR}
 else
     TARGET_PUBLISH_DIR="./public"
