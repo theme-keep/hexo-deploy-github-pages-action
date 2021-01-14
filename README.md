@@ -1,6 +1,6 @@
 # Hexo Deploy GitHub Pages Action
 
-This [GitHub action](https://github.com/features/actions) for building and deploying Hexo project to GitHub pages.
+This GitHub action for building and deploying Hexo project to GitHub pages.
 
 ## Getting Started
 
@@ -20,9 +20,15 @@ jobs:
       uses: theme-keep/hexo-deploy-github-pages-action@master
       env:
         PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PUBLISH_REPOSITORY: theme-keep/theme-keep.github.io # The repository the action should deploy to.
-        BRANCH: master  # The branch the action should deploy to.
-        PUBLISH_DIR: ./public # The folder the action should deploy.
+
+        # The repository the action should deploy to.
+        PUBLISH_REPOSITORY: theme-keep/site
+
+        # The branch the action should deploy to.
+        BRANCH: master
+  
+        # The folder the action should deploy.
+        PUBLISH_DIR: ./public 
 ```
 
 if you want to make the workflow only triggers on push events to specific branches, you can like this: 
@@ -43,7 +49,7 @@ Below you'll find a description of what each option does.
 | Key  | Value Information | Type | Required |
 | ------------- | ------------- | ------------- | ------------- |
 | `PERSONAL_TOKEN`  | Depending on the repository permissions you may need to provide the action with a GitHub Personal Access Token in order to deploy. You can [learn more about how to generate one here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). **This should be stored as a secret**. | `secrets` | **Yes** |
-| `PUBLISH_REPOSITORY`  | The repository the action should deploy to. for example `renzhaosy/renzhaosy.github.io` | `env` | **Yes** |
+| `PUBLISH_REPOSITORY`  | The repository the action should deploy to. for example `theme-keep/site` | `env` | **Yes** |
 | `BRANCH`  | The branch the action should deploy to. for example `master` | `env` | **Yes** |
 | `PUBLISH_DIR`  | The folder the action should deploy. for example `./public`| `env` | **Yes** |
 
