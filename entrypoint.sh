@@ -65,7 +65,7 @@ git checkout --orphan $TARGET_BRANCH
 git add .
 
 echo 'Start Commit ...'
-git commit --allow-empty -m "Building and deploying Hexo project form Github Action"
+git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
 
 echo 'Start Push ...'
 git push -u origin "${TARGET_BRANCH}" --force
