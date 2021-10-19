@@ -1,9 +1,9 @@
 name: 'Hexo Deploy GitHub Pages Action'
-description: 'This GitHub action  for building and deploying a Hexo project to GitHub pages.'
-author: 'theme-keep'
+description: 'This GitHub action for building and deploying a Hexo project to GitHub pages.'
+author: 'Keep Theme Team'
 runs:
   using: 'docker'
   image: 'Dockerfile'
 branding:
   icon: 'git-commit'
-  color: 'skyblue'
+  color: 'blue'

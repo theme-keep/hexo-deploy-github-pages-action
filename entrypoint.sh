@@ -31,28 +31,28 @@ fi
 REPOSITORY_PATH="https://x-access-token:${PERSONAL_TOKEN}@github.com/${TARGET_REPOSITORY}.git"
 
 # deploy to
-echo "Deploy to ${TARGET_REPOSITORY}"
+echo ">>>>> Start deploy to ${TARGET_REPOSITORY} <<<<<"
 
 # Installs Git.
+echo ">>> Install Git ..."
 apt-get update && \
 apt-get install -y git && \
 
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
 
-echo "npm install ..."
+echo ">>> Install NPM dependencies ..."
 npm install
 
+echo ">>> Clean folder ..."
+npx hexo clean
 
-echo "Clean folder ..."
-./node_modules/hexo/bin/hexo clean
-
-echo "Generate file ..."
-./node_modules/hexo/bin/hexo generate
+echo ">>> Generate file ..."
+npx hexo generate
 
 cd $TARGET_PUBLISH_DIR
 
-echo "Config git ..."
+echo ">>> Config git ..."
 
 # Configures Git.
 git init
@@ -64,10 +64,10 @@ git checkout --orphan $TARGET_BRANCH
 
 git add .
 
-echo 'Start Commit ...'
+echo '>>> Start Commit ...'
 git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
 
-echo 'Start Push ...'
+echo '>>> Start Push ...'
 git push -u origin "${TARGET_BRANCH}" --force
 
-echo "Deployment succesful!"
+echo ">>> Deployment successful!"
