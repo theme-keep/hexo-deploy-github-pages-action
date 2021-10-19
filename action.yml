@@ -6,4 +6,4 @@ runs:
   image: 'Dockerfile'
 branding:
   icon: 'git-commit'
-  color: 'skyblue'
+  color: 'blue'

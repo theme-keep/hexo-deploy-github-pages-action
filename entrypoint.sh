@@ -45,10 +45,10 @@ npm install
 
 
 echo "Clean folder ..."
-./node_modules/hexo/bin/hexo clean
+npx hexo clean
 
 echo "Generate file ..."
-./node_modules/hexo/bin/hexo generate
+npx hexo generate
 
 cd $TARGET_PUBLISH_DIR
 
@@ -70,4 +70,4 @@ git commit --allow-empty -m "Building and deploying Hexo project from Github Act
 echo 'Start Push ...'
 git push -u origin "${TARGET_BRANCH}" --force
 
-echo "Deployment succesful!"
+echo "Deployment successful!"
