@@ -52,6 +52,10 @@ npx hexo generate
 
 cd $TARGET_PUBLISH_DIR
 
+echo ">>> init CNAME"
+
+echo "blog.vipicu.com" > CNAME
+
 echo ">>> Config git ..."
 
 # Configures Git.
