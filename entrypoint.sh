@@ -30,7 +30,8 @@ fi
 
 REPOSITORY_PATH="https://x-access-token:${PERSONAL_TOKEN}@github.com/${TARGET_REPOSITORY}.git"
 
-# deploy to
+# start deploy
+
 echo ">>>>> Start deploy to ${TARGET_REPOSITORY} <<<<<"
 
 # Installs Git.
@@ -44,25 +45,27 @@ cd "${GITHUB_WORKSPACE}"
 echo ">>> Install NPM dependencies ..."
 npm install
 
-echo ">>> Clean folder ..."
+echo ">>> Clean cache files ..."
 npx hexo clean
 
 echo ">>> Generate file ..."
 npx hexo generate
 
-cd $TARGET_PUBLISH_DIR
+cd "${TARGET_PUBLISH_DIR}"
+
+# Configures Git.
 
 echo ">>> Config git ..."
 
-# Configures Git.
-git init
-git config user.name "${GITHUB_ACTOR}"
-git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-mydir=`pwd`
-git config --global --add safe.directory $mydir
-git remote add origin "${REPOSITORY_PATH}"
+CURRENT_DIR=$(pwd)
 
-git checkout --orphan $TARGET_BRANCH
+git init
+git config --global user.name "${GITHUB_ACTOR}"
+git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+git config --global --add safe.directory "${CURRENT_DIR}"
+
+git remote add origin "${REPOSITORY_PATH}"
+git checkout --orphan "${TARGET_BRANCH}"
 
 git add .
 
