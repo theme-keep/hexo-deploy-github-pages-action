@@ -67,6 +67,10 @@ git config --global --add safe.directory "${CURRENT_DIR}"
 git remote add origin "${REPOSITORY_PATH}"
 git checkout --orphan "${TARGET_BRANCH}"
 
+if [ -n "${CNAME}" ]; then
+    echo ${CNAME} > CNAME
+fi
+
 git add .
 
 echo '>>> Start Commit ...'
