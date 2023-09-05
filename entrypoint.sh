@@ -2,7 +2,7 @@
 
 set -e
 
-# check values
+# Check values
 
 if [ -n "${PUBLISH_REPOSITORY}" ]; then
     TARGET_REPOSITORY=${PUBLISH_REPOSITORY}
@@ -30,34 +30,43 @@ fi
 
 REPOSITORY_PATH="https://x-access-token:${PERSONAL_TOKEN}@github.com/${TARGET_REPOSITORY}.git"
 
-# start deploy
 
-echo ">>>>> Start deploy to ${TARGET_REPOSITORY} <<<<<"
+# Start deploy
 
-# Installs Git.
-echo ">>> Install Git ..."
-apt-get update && \
-apt-get install -y git && \
+echo ">_ Start deploy to ${TARGET_REPOSITORY}"
 
-# Directs the action to the the Github workspace.
+git config --global core.quotepath false
+git config --global --add safe.directory /github/workspace
+
 cd "${GITHUB_WORKSPACE}"
 
-echo ">>> Install NPM dependencies ..."
+
+# Set post's update date to the timestamp of the most recent Git commit
+
+find source/_posts -name "*.md" | while read file; do
+  timestamp=$(git log -1 --format="%ct" "$file")
+  formatted_timestamp=$(date -u -d "@$timestamp" "+%Y%m%d%H%M.%S")
+  touch -t "$formatted_timestamp" "$file"
+done
+
+
+echo ">_ Install NPM dependencies ..."
 npm install
 
-echo ">>> Clean cache files ..."
+echo ">_ Clean cache files ..."
 npx hexo clean
 
-echo ">>> Generate file ..."
+echo ">_ Generate file ..."
 npx hexo generate
 
 cd "${TARGET_PUBLISH_DIR}"
 
-# Configures Git.
-
-echo ">>> Config git ..."
-
 CURRENT_DIR=$(pwd)
+
+
+# Configures Git
+
+echo ">_ Config git ..."
 
 git init
 git config --global user.name "${GITHUB_ACTOR}"
@@ -67,16 +76,12 @@ git config --global --add safe.directory "${CURRENT_DIR}"
 git remote add origin "${REPOSITORY_PATH}"
 git checkout --orphan "${TARGET_BRANCH}"
 
-if [ -n "${CNAME}" ]; then
-    echo ${CNAME} > CNAME
-fi
-
 git add .
 
-echo '>>> Start Commit ...'
-git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
+echo '>_ Start Commit ...'
+git commit --allow-empty -m "Build and Deploy from Github Actions"
 
-echo '>>> Start Push ...'
+echo '>_ Start Push ...'
 git push -u origin "${TARGET_BRANCH}" --force
 
-echo ">>> Deployment successful!"
+echo ">_ Deployment successful"

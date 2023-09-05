@@ -1,6 +1,6 @@
 name: 'Hexo Deploy GitHub Pages Action'
 description: 'This GitHub action for building and deploying a Hexo project to GitHub pages.'
-author: 'Keep Theme Team'
+author: 'XPoet'
 runs:
   using: 'docker'
   image: 'Dockerfile'
