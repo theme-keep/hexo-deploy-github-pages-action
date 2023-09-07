@@ -63,6 +63,9 @@ cd "${TARGET_PUBLISH_DIR}"
 
 CURRENT_DIR=$(pwd)
 
+if [ -n "${CNAME}" ]; then
+    echo ${CNAME} > CNAME
+fi
 
 # Configures Git
 
