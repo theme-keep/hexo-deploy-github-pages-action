@@ -50,14 +50,14 @@ find source/_posts -name "*.md" | while read file; do
 done
 
 
-echo ">_ Install NPM dependencies ..."
-npm install
+echo ">_ Install pnpm dependencies ..."
+pnpm install
 
 echo ">_ Clean cache files ..."
-npx hexo clean
+pnpm exec hexo clean
 
 echo ">_ Generate file ..."
-npx hexo generate
+pnpm exec hexo generate
 
 cd "${TARGET_PUBLISH_DIR}"
 

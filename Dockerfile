@@ -4,6 +4,9 @@ FROM node:24
 # Install Git
 RUN apt-get update && apt-get install -y git
 
+# Enable pnpm via corepack
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
